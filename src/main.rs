@@ -1,6 +1,6 @@
 use days::run_day;
 use wasm_bindgen::JsCast;
-use web_sys::HtmlSelectElement;
+use web_sys::{HtmlSelectElement, HtmlTextAreaElement};
 use yew::prelude::*;
 
 mod days;
@@ -8,6 +8,7 @@ mod days;
 #[derive(Debug, PartialEq, Eq)]
 enum Msg {
     Solve,
+    Input(String),
     Day(usize),
 }
 
@@ -55,6 +56,10 @@ impl Component for App {
                 self.part_two = Some(p2);
                 true
             }
+            Msg::Input(input) => {
+                self.input = input;
+                true
+            }
         }
     }
 
@@ -68,6 +73,13 @@ impl Component for App {
             let selected = input.value().parse().unwrap();
             Msg::Day(selected)
         });
+        let input = ctx.link().callback(|event: Event| {
+            let input = event
+                .target()
+                .and_then(|t| t.dyn_into::<HtmlTextAreaElement>().ok())
+                .unwrap();
+            Msg::Input(input.value())
+        });
         html! {
             <main>
                 <h1>{ "Advent of Code 2021" }</h1>
@@ -76,10 +88,12 @@ impl Component for App {
                         (1..=25).map(|i| html! { <option value={i.to_string()} selected={self.day == i}>{ format_day(i) }</option> })
                     }}
                 </select>
+                <textarea onchange={input} rows="20" cols="50" />
                 <button onclick={link.callback(|_| Msg::Solve)}>{ "Solve" }</button>
-                <p>{ self.input.clone() }</p>
-                <p>{ maybe_solution(self.part_one.as_ref()) }</p>
-                <p>{ maybe_solution(self.part_two.as_ref()) }</p>
+                <section>
+                    <p>{ maybe_solution(self.part_one.as_ref()) }</p>
+                    <p>{ maybe_solution(self.part_two.as_ref()) }</p>
+                </section>
             </main>
         }
     }
