@@ -3,48 +3,41 @@ name: pipeline
 on: [push, pull_request]
 
 jobs:
-  checks:
+  check:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-  cabal:
-    runs-on: ubuntu-latest
-    needs: checks
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup Haskell
-        id: setup-haskell-cabal
-        uses: haskell/actions/setup@v1
+      - uses: actions-rs/toolchain@v1
         with:
-          ghc-version: 9.0
-          cabal-version: latest
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: rustfmt, clippy
 
-      - name: Formatting
-        uses: mrkkrp/ormolu-action@v3
+      - uses: Swatinem/rust-cache@v1
 
-      - name: Lints
-        run: curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh | sh -s .
-
-      - name: Freeze
-        run: cabal freeze
-
-      - name: Cache ~/.cabal/packages, ~/.cabal/store and dist-newstyle
-        uses: actions/cache@v2
+      - name: build
+        uses: actions-rs/cargo@v1
         with:
-          path: |
-            ~/.cabal/packages
-            ~/.cabal/store
-            dist-newstyle
-          key: ${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('cabal.project.freeze') }}
+          command: test
+          args: --no-run
 
-      - name: Build
-        run: |
-          cabal configure --enable-tests --enable-benchmarks --test-show-details=direct
-          cabal build all
+      - name: test
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: -- --nocapture --quiet
 
-      - name: Test
-        run: |
-          cabal test all
+      - name: formatting
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check
+
+      - name: clippy
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: -- -D warnings

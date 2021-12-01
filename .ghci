@@ -1,3 +1,0 @@
-:set -XOverloadedStrings
-import Text.Megaparsec
-import qualified Data.Text as T
