@@ -1,4 +1,6 @@
-module AoC (hello) where
+module AoC (runDay) where
 
-hello :: IO ()
-hello = putStrLn "hello!"
+runDay :: Int -> IO ()
+runDay day = case day of
+  1 -> putStrLn "1"
+  _ -> putStrLn "Missing day"
