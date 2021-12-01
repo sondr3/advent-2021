@@ -1,0 +1,82 @@
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol,
+ul {
+  list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+  max-width: 100%;
+}
+
+/* removes spacing between cells in tables */
+table {
+  border-collapse: collapse;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+main {
+  max-width: 50em;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+select {
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 2px;
+}
+
+textarea {
+  font-family: monospace;
+  margin: 1rem 0;
+}
+
+button {
+  width: 100%;
+  font-size: 1.25rem;
+  padding: 10px 2px;
+  margin: 0 auto;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 50px;
+}
+
+.solutions {
+  margin: 0 auto;
+  display: flex;
+  gap: 50px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+}
+
+.solution {
+  font-family: monospace;
+  font-size: 1.5rem;
+  align-self: center;
+}

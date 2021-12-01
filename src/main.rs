@@ -15,6 +15,7 @@ enum Msg {
 struct App {
     day: usize,
     input: String,
+    solved: bool,
     part_one: Option<String>,
     part_two: Option<String>,
 }
@@ -39,6 +40,7 @@ impl Component for App {
         Self {
             day: 1,
             input: "".to_string(),
+            solved: false,
             part_one: None,
             part_two: None,
         }
@@ -48,16 +50,24 @@ impl Component for App {
         match msg {
             Msg::Day(day) => {
                 self.day = day;
+                self.solved = false;
+                self.input = "".to_string();
+                self.part_one = None;
+                self.part_two = None;
                 true
             }
             Msg::Solve => {
                 let (p1, p2) = run_day(self.day, &self.input);
                 self.part_one = Some(p1);
                 self.part_two = Some(p2);
+                self.solved = true;
                 true
             }
             Msg::Input(input) => {
-                self.input = input;
+                self.input = input.trim().to_string();
+                self.part_one = None;
+                self.part_two = None;
+                self.solved = false;
                 true
             }
         }
@@ -83,16 +93,20 @@ impl Component for App {
         html! {
             <main>
                 <h1>{ "Advent of Code 2021" }</h1>
-                <select onchange={selected}>
-                    {for {
-                        (1..=25).map(|i| html! { <option value={i.to_string()} selected={self.day == i}>{ format_day(i) }</option> })
-                    }}
-                </select>
+                if self.solved {
+                <section class="solutions">
+                    <h2 class="title">{ "Part one: " }<span class="solution">{ maybe_solution(self.part_one.as_ref()) }</span></h2>
+                    <h2 class="title">{ "Part two: " }<span class="solution">{ maybe_solution(self.part_two.as_ref()) }</span></h2>
+                </section>
+                }
                 <textarea onchange={input} rows="20" cols="50" />
-                <button onclick={link.callback(|_| Msg::Solve)}>{ "Solve" }</button>
-                <section>
-                    <p>{ maybe_solution(self.part_one.as_ref()) }</p>
-                    <p>{ maybe_solution(self.part_two.as_ref()) }</p>
+                <section class="inputs">
+                    <select onchange={selected}>
+                        {for {
+                            (1..=25).map(|i| html! { <option value={i.to_string()} selected={self.day == i}>{ format_day(i) }</option> })
+                        }}
+                    </select>
+                    <button onclick={link.callback(|_| Msg::Solve)}>{ "Solve" }</button>
                 </section>
             </main>
         }
