@@ -30,11 +30,11 @@ impl AoC for Day02 {
     type Output = usize;
     type Input = Move;
 
-    fn parse(input: &str) -> Vec<Move> {
+    fn parse(input: &str) -> Vec<Self::Input> {
         input.lines().map(Move::from).collect()
     }
 
-    fn part_one(input: &[Move]) -> usize {
+    fn part_one(input: &[Self::Input]) -> Self::Output {
         let pos = input
             .iter()
             .fold(Pos { x: 0, y: 0, aim: 0 }, |pos, m| match m {
@@ -58,7 +58,7 @@ impl AoC for Day02 {
         pos.x * pos.y
     }
 
-    fn part_two(input: &[Move]) -> usize {
+    fn part_two(input: &[Self::Input]) -> Self::Output {
         let pos = input
             .iter()
             .fold(Pos { x: 0, y: 0, aim: 0 }, |pos, m| match m {

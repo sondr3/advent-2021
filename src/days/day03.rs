@@ -29,7 +29,7 @@ impl AoC for Day03 {
         input.lines().map(|l| l.chars().collect()).collect()
     }
 
-    fn part_one(input: &[Self::Input]) -> usize {
+    fn part_one(input: &[Self::Input]) -> Self::Output {
         let len = input[0].len();
         let mut gamma = String::new();
 
@@ -45,7 +45,7 @@ impl AoC for Day03 {
         gamma * epsilon
     }
 
-    fn part_two(input: &[Self::Input]) -> usize {
+    fn part_two(input: &[Self::Input]) -> Self::Output {
         let oxygen = find_oxygen(input.to_vec(), true);
         let scrubber = find_oxygen(input.to_vec(), false);
 
