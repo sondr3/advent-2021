@@ -23,6 +23,7 @@ pub fn run_day(day: usize, input: &str) -> (String, String) {
         1 => day01::Day01::solve(input),
         2 => day02::Day02::solve(input),
         3 => day03::Day03::solve(input),
+        4 => day04::Day04::solve(input),
         _ => ("Not implemented".to_string(), "Not implemented".to_string()),
     }
 }
