@@ -28,13 +28,13 @@ struct Pos {
 
 impl AoC for Day02 {
     type Output = usize;
-    type Input = Move;
+    type Input = Vec<Move>;
 
-    fn parse(input: &str) -> Vec<Self::Input> {
+    fn parse(input: &str) -> Self::Input {
         input.lines().map(Move::from).collect()
     }
 
-    fn part_one(input: &[Self::Input]) -> Self::Output {
+    fn part_one(input: Self::Input) -> Self::Output {
         let pos = input
             .iter()
             .fold(Pos { x: 0, y: 0, aim: 0 }, |pos, m| match m {
@@ -58,7 +58,7 @@ impl AoC for Day02 {
         pos.x * pos.y
     }
 
-    fn part_two(input: &[Self::Input]) -> Self::Output {
+    fn part_two(input: Self::Input) -> Self::Output {
         let pos = input
             .iter()
             .fold(Pos { x: 0, y: 0, aim: 0 }, |pos, m| match m {
@@ -92,24 +92,24 @@ mod day02 {
     #[test]
     fn part_1_example() {
         let data = Day02::parse("forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2");
-        assert_eq!(150, Day02::part_one(&data));
+        assert_eq!(150, Day02::part_one(data));
     }
 
     #[test]
     fn part_1() {
         let data = Day02::parse(INPUT);
-        assert_eq!(2215080, Day02::part_one(&data));
+        assert_eq!(2215080, Day02::part_one(data));
     }
 
     #[test]
     fn part_2_example() {
         let data = Day02::parse("forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2");
-        assert_eq!(900, Day02::part_two(&data));
+        assert_eq!(900, Day02::part_two(data));
     }
 
     #[test]
     fn part_2() {
         let data = Day02::parse(INPUT);
-        assert_eq!(1864715580, Day02::part_two(&data));
+        assert_eq!(1864715580, Day02::part_two(data));
     }
 }

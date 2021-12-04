@@ -1,20 +1,19 @@
 mod day01;
 mod day02;
 mod day03;
+mod day04;
 
 trait AoC {
     type Output: std::fmt::Display;
     type Input;
 
-    fn parse(input: &str) -> Vec<Self::Input>;
-    fn part_one(input: &[Self::Input]) -> Self::Output;
-    fn part_two(input: &[Self::Input]) -> Self::Output;
+    fn parse(input: &str) -> Self::Input;
+    fn part_one(input: Self::Input) -> Self::Output;
+    fn part_two(input: Self::Input) -> Self::Output;
     fn solve(input: &str) -> (String, String) {
-        let data = Self::parse(input);
-
         (
-            Self::part_one(&data).to_string(),
-            Self::part_two(&data).to_string(),
+            Self::part_one(Self::parse(input)).to_string(),
+            Self::part_two(Self::parse(input)).to_string(),
         )
     }
 }
