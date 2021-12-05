@@ -136,6 +136,6 @@ mod day05 {
     #[test]
     fn part_2() {
         let data = Day05::parse(INPUT);
-        assert_eq!(12, Day05::part_two(data));
+        assert_eq!(21373, Day05::part_two(data));
     }
 }
