@@ -1,4 +1,4 @@
-use super::AoC;
+use crate::{days::AoC, tests};
 
 pub struct Day03;
 
@@ -53,37 +53,4 @@ impl AoC for Day03 {
     }
 }
 
-#[cfg(test)]
-mod day03 {
-    use super::*;
-
-    const INPUT: &str = include_str!("../../inputs/day03.txt");
-
-    #[test]
-    fn part_1_example() {
-        let data = Day03::parse(
-            "00100\n11110\n10110\n10111\n10101\n01111\n00111\n11100\n10000\n11001\n00010\n01010",
-        );
-        assert_eq!(198, Day03::part_one(data));
-    }
-
-    #[test]
-    fn part_1() {
-        let data = Day03::parse(INPUT);
-        assert_eq!(1997414, Day03::part_one(data));
-    }
-
-    #[test]
-    fn part_2_example() {
-        let data = Day03::parse(
-            "00100\n11110\n10110\n10111\n10101\n01111\n00111\n11100\n10000\n11001\n00010\n01010",
-        );
-        assert_eq!(230, Day03::part_two(data));
-    }
-
-    #[test]
-    fn part_2() {
-        let data = Day03::parse(INPUT);
-        assert_eq!(1032597, Day03::part_two(data));
-    }
-}
+tests!(Day03, 198, 1997414, 230, 1032597);

@@ -1,6 +1,6 @@
 use std::{collections::HashMap, ops::RangeInclusive, str::FromStr};
 
-use super::AoC;
+use crate::{days::AoC, tests};
 
 pub struct Segment {
     x1: isize,
@@ -95,47 +95,4 @@ impl AoC for Day05 {
     }
 }
 
-#[cfg(test)]
-mod day05 {
-    use super::*;
-
-    const INPUT: &str = include_str!("../../inputs/day05.txt");
-
-    fn input() -> String {
-        r#"0,9 -> 5,9
-8,0 -> 0,8
-9,4 -> 3,4
-2,2 -> 2,1
-7,0 -> 7,4
-6,4 -> 2,0
-0,9 -> 2,9
-3,4 -> 1,4
-0,0 -> 8,8
-5,5 -> 8,2"#
-            .to_string()
-    }
-
-    #[test]
-    fn part_1_example() {
-        let data = Day05::parse(&input());
-        assert_eq!(5, Day05::part_one(data));
-    }
-
-    #[test]
-    fn part_1() {
-        let data = Day05::parse(INPUT);
-        assert_eq!(7380, Day05::part_one(data));
-    }
-
-    #[test]
-    fn part_2_example() {
-        let data = Day05::parse(&input());
-        assert_eq!(12, Day05::part_two(data));
-    }
-
-    #[test]
-    fn part_2() {
-        let data = Day05::parse(INPUT);
-        assert_eq!(21373, Day05::part_two(data));
-    }
-}
+tests!(Day05, 5, 7380, 12, 21373);
