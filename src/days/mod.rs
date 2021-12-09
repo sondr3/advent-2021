@@ -5,6 +5,7 @@ mod day04;
 mod day05;
 mod day06;
 mod day07;
+mod day09;
 
 #[macro_export]
 macro_rules! tests {
