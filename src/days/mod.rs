@@ -15,15 +15,14 @@ macro_rules! tests {
             env!("CARGO_MANIFEST_DIR"),
             "/inputs/",
             stringify!($day),
-            ".txt"
+            ".input"
         ));
         #[allow(dead_code)]
         const EXAMPLE: &str = include_str!(concat!(
             env!("CARGO_MANIFEST_DIR"),
             "/inputs/",
             stringify!($day),
-            "_ex",
-            ".txt"
+            ".test"
         ));
     };
     ($day: ident, $p1: expr) => {
