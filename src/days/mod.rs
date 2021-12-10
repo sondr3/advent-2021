@@ -6,6 +6,7 @@ mod day05;
 mod day06;
 mod day07;
 mod day09;
+mod day10;
 
 #[macro_export]
 macro_rules! tests {
@@ -84,6 +85,7 @@ pub fn run_day(day: usize, input: &str) -> (String, String) {
         6 => day06::Day06::solve(input),
         7 => day07::Day07::solve(input),
         9 => day09::Day09::solve(input),
+        10 => day10::Day10::solve(input),
         _ => ("Not implemented".to_string(), "Not implemented".to_string()),
     }
 }
